@@ -276,7 +276,7 @@ function initGUI() {
     }
     //#endregion
 
-    //#region  Add navigation controls
+    //#region Add navigation controls
     let navTr = document.getElementById("navigation")
     let navTd = document.createElement("td")
     navTd.setAttribute("colspan", numOfPlayers + 1)
