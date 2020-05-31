@@ -1,0 +1,169 @@
+.player-name {
+    background: #e4e4e4;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    margin: 5px 0px;
+    max-width: 70px;
+    font-size: 15px;
+    text-align: center;
+}
+
+#package {
+    margin: 5px 0px;
+    font-size: 15px;
+    width: 100%;
+    height: 50px;
+}
+
+/* body {
+    margin-bottom: 200px;
+} */
+
+.subject {
+    background-color: rgb(71, 71, 71);
+    color: whitesmoke;
+    font-size: 20px;
+    padding: 6px;
+
+}
+
+.question-price {
+    font-weight: bold;
+    height: 24px;
+}
+
+button:focus {
+    outline: none;
+}
+
+#main {
+    width: 450px;
+}
+
+.answer, #totals {
+    text-align: center;
+}
+
+.answer > td {
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.answer:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #cccccc;
+}
+
+td[data-answer="won"] {
+    color: green;
+}
+
+td[data-answer="lost"] {
+    color: red;
+}
+
+#totals {
+    font-weight: bold;
+}
+
+#spacer {
+    height: 24px;
+}
+
+#spacer > td {
+    border-bottom: 1px solid rgb(25, 29, 51);
+}
+
+.player {
+    background-color: lightgray;
+    padding: 8px;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plus-btn, .minus-btn {
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.plus-btn:hover, .minus-btn:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.plus-btn:visited, .minus-btn:visited {
+    background-color: lightsalmon;
+}
+
+.plus-btn {
+    color: rgb(104, 209, 104);
+}
+
+.minus-btn {
+    color: rgb(245, 100, 100);
+}
+
+#nav-container {
+    display: flex;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+    user-select: none;
+}
+
+#nav-next, #nav-prev {
+    flex-grow: 1;
+    border-radius: 10px;
+    background-color: #f6f6f6;
+}
+
+#nav-next:hover, #nav-prev:hover, #nav-current:hover {
+    background-color: rgb(235, 235, 235);
+    cursor: pointer;
+}
+
+#nav-current {
+    flex-grow: 8;
+    cursor: default;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+select {
+    margin-top: 6px;
+    width: 100%;
+    max-height: 300px;
+    font-size: 20px;
+}
+
+select > option {
+    white-space: normal;
+    color: black;
+}
+
+option:active {
+    color: black;
+}
+
+option:checked {
+    background: red linear-gradient(0deg, rgb(138, 138, 138) 0%, rgb(138, 138, 138) 100%);
+    color: black;
+}
+
+select[multiple]:focus option:checked {
+    background: red linear-gradient(0deg, rgb(138, 138, 138) 0%, rgb(138, 138, 138) 100%);
+  }

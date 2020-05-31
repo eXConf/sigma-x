@@ -1,0 +1,28 @@
+{
+  "name": "sixbot",
+  "version": "1.0.0",
+  "description": "Бот для \"Своей игры\" с постепенным выводом текста (как рассказчик)",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "watch": "nodemon --exec electron .",
+    "build": "electron-builder --win"
+  },
+  "keywords": [
+    "sigame",
+    "telegram",
+    "bot"
+  ],
+  "author": "eXConf",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^9.0.0",
+    "electron-builder": "^22.7.0",
+    "electron-rebuild": "^1.11.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.50.0",
+    "robotjs": "^0.6.0"
+  }
+}
