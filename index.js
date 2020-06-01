@@ -46,12 +46,14 @@ function toggleShowPackage() {
 
 function openNewGameWindow() {
   newGameWindow = new BrowserWindow({
-    width: 400, height: 300, minWidth: 400, minHeight: 300
+    width: 400, height: 300, minWidth: 400, minHeight: 300,
+    webPreferences: { nodeIntegration: true }
   })
   
   //Remove menu for production!
   //newGameWindow.removeMenu()
   newGameWindow.loadFile('new-game.html')
+  newGameWindow.webContents.openDevTools()
 
   newGameWindow.on('closed',  () => {
     newGameWindow = null
@@ -106,5 +108,10 @@ app.on('activate', () => {
 //#region IPC
 ipcMain.on("resize-main-window", (e, height) => {
   mainWindow.setSize(mainWindowWidth, mainWindowHeight + height + 10)
+})
+
+ipcMain.on("new-game-clicked", (e, params) => {
+  mainWindow.webContents.send("new-game-clicked", params)
+  newGameWindow.close()
 })
 //#endregion

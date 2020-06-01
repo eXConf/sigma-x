@@ -249,6 +249,7 @@ function addQuestionsBlock() {
 function addPlayerControls() {
     let playersRow = document.getElementById("players")
     let blankPlayer = document.createElement("td")
+    blankPlayer.setAttribute("class", "blank player")
     playersRow.appendChild(blankPlayer)
     for (let i = 0; i < numOfPlayers; i++) {
         let td = document.createElement("td")
@@ -334,7 +335,7 @@ function addPackageBlock() {
 
     packageTbody.appendChild(packageTr).appendChild(packageTd).appendChild(packageSelect)
 
-    packageTd.setAttribute("colspan", numOfPlayers)
+    packageTd.setAttribute("colspan", numOfPlayers + 1)
     packageSelect.setAttribute("id", "select-box")
     packageSelect.setAttribute("size", "4")
     packageSelect.setAttribute("multiple", "")
@@ -376,6 +377,13 @@ ipcRenderer.on("toggle-show-package", () => {
     let isPackVisible = selectBox.offsetParent === null ? false : true
     selectBox.setAttribute("style", "display: " + (isPackVisible ? "none" : "block"))
     
+})
+
+ipcRenderer.on("new-game-clicked", (e, params) => {
+    numOfPlayers = params.players
+    numOfQuestions = params.questions
+    resetGUI()
+    startGame(numOfPlayers)
 })
 //#endregion
 
