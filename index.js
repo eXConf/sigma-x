@@ -47,13 +47,14 @@ function toggleShowPackage() {
 function openNewGameWindow() {
   newGameWindow = new BrowserWindow({
     width: 400, height: 300, minWidth: 400, minHeight: 300,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
+    title: "SIGMA X — Новая игра"
   })
   
   //Remove menu for production!
-  //newGameWindow.removeMenu()
+  newGameWindow.removeMenu()
   newGameWindow.loadFile('new-game.html')
-  newGameWindow.webContents.openDevTools()
+  //newGameWindow.webContents.openDevTools()
 
   newGameWindow.on('closed',  () => {
     newGameWindow = null
@@ -70,7 +71,8 @@ function createWindow () {
     width: mainWindowWidth, height: mainWindowHeight,
     minWidth: 490, minHeight: 450,
     x: 200, y: 50,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
+    title: "SIGMA X"
   })
 
   // Load index.html into the new BrowserWindow
