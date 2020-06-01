@@ -5,6 +5,7 @@ const isMac = process.platform === 'darwin'
 
 //#region Window(s)
 let mainWindow
+let newGameWindow
 let mainWindowWidth = 490
 let mainWindowHeight = 440
 //#endregion
@@ -41,6 +42,21 @@ function pastePackageFromClipboard() {
 
 function toggleShowPackage() {
   mainWindow.webContents.send("toggle-show-package")
+}
+
+function openNewGameWindow() {
+  newGameWindow = new BrowserWindow({
+    width: 400, height: 300, minWidth: 400, minHeight: 300
+  })
+  
+  //Remove menu for production!
+  //newGameWindow.removeMenu()
+  newGameWindow.loadFile('new-game.html')
+
+  newGameWindow.on('closed',  () => {
+    newGameWindow = null
+  })
+
 }
 //#endregion
 

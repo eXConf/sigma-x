@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+    <link rel="stylesheet" href="./new-game.css">
+    
+  </head>
+  <body>
+    <div>
+        <h2>Параметры новой игры</h2>
+        <div id="num-players">
+            <label for="players">Число игроков:</label>
+            <select id="players">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div id="num-questions"">
+            <label for="question">Число вопросов в теме:</label>
+            <select id="question">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div id="start">
+            <button>Начать</button>
+        </div>
+    </div>
+    <script>
+      require('./new-game.js')
+    </script>
+  </body>
+</html>

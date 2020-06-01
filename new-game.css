@@ -1,0 +1,26 @@
+h2 {
+    text-align: center;
+}
+
+#num-players {
+    margin: 10px;
+    font-size: 20px;
+}
+
+#num-questions {
+    margin: 10px;
+    font-size: 20px;
+}
+
+#start {
+    text-align: center;
+    margin: 10px;
+}
+
+button {
+    margin: 10px;
+    padding: 6px 10px;
+    font-size: 20px;
+    background-color: rgb(109, 185, 109);
+    border: none;
+}
