@@ -319,6 +319,21 @@ function initGUI() {
     }
     //#endregion
 
+    //#region Add package block
+    let packageTbody = document.getElementById("package-block")
+    let packageTr = document.createElement("tr")
+    let packageTd = document.createElement("td")
+    let packageSelect = document.createElement("select")
+
+    packageTbody.appendChild(packageTr).appendChild(packageTd).appendChild(packageSelect)
+
+    packageTd.setAttribute("colspan", numOfPlayers)
+    packageSelect.setAttribute("id", "select-box")
+    packageSelect.setAttribute("size", "4")
+    packageSelect.setAttribute("multiple", "")
+    packageSelect.setAttribute("style", "display: none")
+    //#endregion
+
     addQuestionsBlock()
     setActiveRow(1)
 }
