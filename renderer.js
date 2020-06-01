@@ -18,6 +18,7 @@ function startGame(numOfPlayers) {
     for (let i = 0; i < numOfPlayers; i++) {
         addPlayer();
     }
+    initGUI()
 }
 
 function addPlayer() {
@@ -118,8 +119,6 @@ function sendPriceToChat() {
 }
 
 //#region GUI
-
-// references
 let totalScoreGUI = document.getElementsByClassName("total-score")
 
 function onAddScoreClicked(e) {
@@ -243,8 +242,9 @@ function onNameKeyDown(e) {
     }
 }
 
-function initGUI() {
-    //#region Add players controls
+//GUI Creation
+// Add players controls
+function addPlayerControls() {
     let playersRow = document.getElementById("players")
     for (let i = 0; i < numOfPlayers; i++) {
         let td = document.createElement("td")
@@ -274,9 +274,10 @@ function initGUI() {
         td.appendChild(div)
         playersRow.appendChild(td)
     }
-    //#endregion
+}
 
-    //#region Add navigation controls
+// Add navigation controls
+function addNavigationControls() {
     let navTr = document.getElementById("navigation")
     let navTd = document.createElement("td")
     navTd.setAttribute("colspan", numOfPlayers + 1)
@@ -299,9 +300,10 @@ function initGUI() {
     navDiv.appendChild(navNext)
     navTd.appendChild(navDiv)
     navTr.appendChild(navTd)
-    //#endregion
+}
 
-    //#region Add total scores
+// Add total scores
+function addTotalScores() {
     let spacerTr = document.getElementById("spacer")
     spacerTr.childNodes[0].setAttribute("colspan", numOfPlayers + 1)
     
@@ -317,9 +319,10 @@ function initGUI() {
         playerScore.innerText = "0"
         totalsTr.appendChild(playerScore)
     }
-    //#endregion
+}
 
-    //#region Add package block
+// Add package block
+function addPackageBlock() {
     let packageTbody = document.getElementById("package-block")
     let packageTr = document.createElement("tr")
     let packageTd = document.createElement("td")
@@ -332,13 +335,18 @@ function initGUI() {
     packageSelect.setAttribute("size", "4")
     packageSelect.setAttribute("multiple", "")
     packageSelect.setAttribute("style", "display: none")
-    //#endregion
+}
+
+function initGUI() {
+    addPlayerControls()
+    addNavigationControls()
+    addTotalScores()
+    addPackageBlock()
 
     addQuestionsBlock()
     setActiveRow(1)
 }
 //#endregion
-
 
 //#region IPC
 ipcRenderer.on("pack-from-clipboard", (e, text) => {
@@ -357,4 +365,3 @@ ipcRenderer.on("toggle-show-package", () => {
 
 // On start
 startGame(numOfPlayers)
-initGUI()
