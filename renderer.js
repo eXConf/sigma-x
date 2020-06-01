@@ -248,6 +248,8 @@ function addQuestionsBlock() {
 // Add players controls
 function addPlayerControls() {
     let playersRow = document.getElementById("players")
+    let blankPlayer = document.createElement("td")
+    playersRow.appendChild(blankPlayer)
     for (let i = 0; i < numOfPlayers; i++) {
         let td = document.createElement("td")
         td.setAttribute("class", "player")
@@ -350,7 +352,15 @@ function initGUI() {
 }
 
 function resetGUI() {
+    let questionsBlock = document.getElementById("subjects")
+    let playerControls = document.getElementById("players")
+    let navigationConrtols = document.getElementById("navigation")
+    let totalScores = document.getElementById("totals")
 
+    questionsBlock.innerHTML = ""
+    playerControls.innerHTML = ""
+    navigationConrtols.innerHTML = ""
+    totalScores.innerHTML = ""
 }
 //#endregion
 
