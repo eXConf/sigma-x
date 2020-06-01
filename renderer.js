@@ -177,37 +177,6 @@ function onQuestionRowClicked(e) {
     setCurrentQuestionText()
 }
 
-function addQuestionsBlock() {
-    let subjectsTbody = document.getElementById("subjects")
-    let subjectsTr = document.createElement("tr")
-    let subjectsTh = document.createElement("th")
-    subjectsTh.setAttribute("colspan", numOfPlayers + 1)
-    subjectsTh.setAttribute("class", "subject")
-    subjectsTh.innerText = "Тема " + getSubjectNumber()
-    subjectsTr.appendChild(subjectsTh)
-    subjectsTbody.appendChild(subjectsTr)
-
-    for (let i = 0; i < numOfQuestions; i++) {
-        let answer = document.createElement("tr")
-        answer.setAttribute("class", "answer")
-        answer.onclick = onQuestionRowClicked
-        let price = document.createElement("td")
-        price.setAttribute("class", "question-price")
-        price.innerText = (i + 1) * 10
-        answer.appendChild(price)
-
-        for (let y = 0; y < numOfPlayers; y++) {
-            let player = document.createElement("td")
-            player.setAttribute("data-player", y)
-            let questionNumber = (getSubjectNumber() - 1) * 5 + (i + 1)
-            player.setAttribute("data-question-number", questionNumber)
-            //player.innerText = questionNumber
-            answer.appendChild(player)
-        }
-        subjectsTbody.appendChild(answer)
-    }
-}
-
 function updateScoreTable(player, score) {
     let cell = document.querySelector("td[data-question-number='" + currentQuestionNumber 
             + "'][data-player='" + player + "']")
@@ -243,6 +212,39 @@ function onNameKeyDown(e) {
 }
 
 //GUI Creation
+
+// Create questions block
+function addQuestionsBlock() {
+    let subjectsTbody = document.getElementById("subjects")
+    let subjectsTr = document.createElement("tr")
+    let subjectsTh = document.createElement("th")
+    subjectsTh.setAttribute("colspan", numOfPlayers + 1)
+    subjectsTh.setAttribute("class", "subject")
+    subjectsTh.innerText = "Тема " + getSubjectNumber()
+    subjectsTr.appendChild(subjectsTh)
+    subjectsTbody.appendChild(subjectsTr)
+
+    for (let i = 0; i < numOfQuestions; i++) {
+        let answer = document.createElement("tr")
+        answer.setAttribute("class", "answer")
+        answer.onclick = onQuestionRowClicked
+        let price = document.createElement("td")
+        price.setAttribute("class", "question-price")
+        price.innerText = (i + 1) * 10
+        answer.appendChild(price)
+
+        for (let y = 0; y < numOfPlayers; y++) {
+            let player = document.createElement("td")
+            player.setAttribute("data-player", y)
+            let questionNumber = (getSubjectNumber() - 1) * 5 + (i + 1)
+            player.setAttribute("data-question-number", questionNumber)
+            //player.innerText = questionNumber
+            answer.appendChild(player)
+        }
+        subjectsTbody.appendChild(answer)
+    }
+}
+
 // Add players controls
 function addPlayerControls() {
     let playersRow = document.getElementById("players")
@@ -345,6 +347,10 @@ function initGUI() {
 
     addQuestionsBlock()
     setActiveRow(1)
+}
+
+function resetGUI() {
+
 }
 //#endregion
 
