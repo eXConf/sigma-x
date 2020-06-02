@@ -397,6 +397,10 @@ ipcRenderer.on("toggle-show-package", () => {
 ipcRenderer.on("new-game-clicked", (e, params) => {
     numOfPlayers = params.players
     numOfQuestions = params.questions
+    players = []
+    currentQuestionNumber = 1
+    currentQuestionPrice = basePrice
+
     resetGUI()
     startGame(numOfPlayers)
 })
