@@ -215,11 +215,15 @@ function setActiveRow(_number) {
      newActive.classList.add("active")
 }
 
-function onNameKeyDown(e) {
-    console.log(e.key)
+function onNameKeyPress(e) {
     if (e.key == "Enter") {
         e.target.blur()
     }
+    setTimeout(() => {
+        let player = parseInt(e.target.getAttribute("data-player"))
+        let name = e.target.value
+        players[player].name = name
+    }, 1)
 }
 
 function copyScoresToClipboard() {
@@ -292,8 +296,9 @@ function addPlayerControls() {
         input.setAttribute("class", "player-name")
         input.setAttribute("type", "text")
         input.setAttribute("spellcheck", "false")
-        input.setAttribute("value", "Игрок " + (i + 1))
-        input.onkeydown = onNameKeyDown
+        input.setAttribute("data-player", i)
+        input.value = `Игрок ${i + 1}`
+        input.onkeypress = onNameKeyPress
 
         div.appendChild(plusButton)
         div.appendChild(input)
