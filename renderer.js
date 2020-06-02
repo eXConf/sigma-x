@@ -339,6 +339,7 @@ function addTotalScores() {
     tdSumSign.innerText = "Σ"
     tdSumSign.onclick = copyScoresToClipboard
     tdSumSign.setAttribute("title", "Кликните, чтобы скопировать счет в буфер обмена")
+    tdSumSign.setAttribute("id", "sum-sign")
     totalsTr.appendChild(tdSumSign)
 
     for (let i = 0; i < numOfPlayers; i++) {

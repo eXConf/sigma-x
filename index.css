@@ -52,6 +52,16 @@ button:focus {
     width: 450px;
 }
 
+#sum-sign {
+    font-size: 24px;
+}
+
+#sum-sign:hover {
+    background-color: rgb(71, 71, 71);
+    color: whitesmoke;
+    cursor: pointer;
+}
+
 .answer, #totals {
     text-align: center;
 }
