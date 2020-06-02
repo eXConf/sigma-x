@@ -340,6 +340,8 @@ function addPackageBlock() {
     packageSelect.setAttribute("size", "4")
     packageSelect.setAttribute("multiple", "")
     packageSelect.setAttribute("style", "display: none")
+
+    window.scrollTo(0, document.body.scrollHeight)
 }
 
 function initGUI() {
@@ -370,12 +372,14 @@ ipcRenderer.on("pack-from-clipboard", (e, text) => {
     parsePackageText(text)
     boxHeight = document.getElementById("select-box").offsetHeight
     ipcRenderer.send("resize-main-window", boxHeight)
+    window.scrollTo(0, document.body.scrollHeight)
 })
 
 ipcRenderer.on("toggle-show-package", () => {
     let selectBox = document.getElementById("select-box")
     let isPackVisible = selectBox.offsetParent === null ? false : true
     selectBox.setAttribute("style", "display: " + (isPackVisible ? "none" : "block"))
+    window.scrollTo(0, document.body.scrollHeight)
     
 })
 

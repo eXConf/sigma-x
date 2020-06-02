@@ -7,86 +7,88 @@
     
   </head>
   <body>
-    <table id="main" cellspacing="0">
-      <tbody id="subjects">
-        <!--
-        <tr>
-          <th colspan="5" class="subject">Тема 1</th>
-        </tr>
-        <tr class="answer">
-          <td class="question-price">10</td>
-          <td>123</td>
-          <td>123</td>
-          <td>123</td>
-          <td>123</td>
-        </tr>
-        -->
-      </tbody>
-      <tbody>
-        <tr id="spacer"><td colspan="4"></td></tr>
-        <tr id="totals">
+    <div id="content">
+      <table id="main" cellspacing="0">
+        <tbody id="subjects">
           <!--
-          <td>Σ</td>
-          <td class="total-score" data-player="0">0</td>
-          <td class="total-score" data-player="1">0</td>
-          <td class="total-score" data-player="2">0</td>
-          <td class="total-score" data-player="3">0</td>
+          <tr>
+            <th colspan="5" class="subject">Тема 1</th>
+          </tr>
+          <tr class="answer">
+            <td class="question-price">10</td>
+            <td>123</td>
+            <td>123</td>
+            <td>123</td>
+            <td>123</td>
+          </tr>
           -->
-        </tr>
-      </tbody>
-      <tbody>
-        <tr id="players">
-          <!--
-          <td class="player">
-            <div class="player-container">
-              <button class="plus-btn" data-player="0">+</button>
-              <input type="text" spellcheck="false" value="Игрок 1"> 
-              <button class="minus-btn" data-player="0">-</button>
-            </div>
-          </td>
-          <td class="player">
-            <div class="player-container">
-              <button class="plus-btn" data-player="1"">+</button>
-              <input type="text" spellcheck="false" value="Игрок 1"> 
-              <button class="minus-btn" data-player="1">-</button>
-            </div>
-          </td>
-          <td class="player">
-            <div class="player-container">
-              <button class="plus-btn" data-player="2"">+</button>
-              <input type="text" spellcheck="false" value="Игрок 1"> 
-              <button class="minus-btn" data-player="2">-</button>
-            </div>
-          </td>
-          <td class="player">
-            <div class="player-container">
-              <button class="plus-btn" data-player="3"">+</button>
-              <input type="text" spellcheck="false" value="Игрок 1"> 
-              <button class="minus-btn" data-player="3">-</button>
-            </div>
-          </td>
+        </tbody>
+        <tbody>
+          <tr id="spacer"><td colspan="4"></td></tr>
+          <tr id="totals">
+            <!--
+            <td>Σ</td>
+            <td class="total-score" data-player="0">0</td>
+            <td class="total-score" data-player="1">0</td>
+            <td class="total-score" data-player="2">0</td>
+            <td class="total-score" data-player="3">0</td>
+            -->
+          </tr>
+        </tbody>
+        <tbody>
+          <tr id="players">
+            <!--
+            <td class="player">
+              <div class="player-container">
+                <button class="plus-btn" data-player="0">+</button>
+                <input type="text" spellcheck="false" value="Игрок 1"> 
+                <button class="minus-btn" data-player="0">-</button>
+              </div>
+            </td>
+            <td class="player">
+              <div class="player-container">
+                <button class="plus-btn" data-player="1"">+</button>
+                <input type="text" spellcheck="false" value="Игрок 1"> 
+                <button class="minus-btn" data-player="1">-</button>
+              </div>
+            </td>
+            <td class="player">
+              <div class="player-container">
+                <button class="plus-btn" data-player="2"">+</button>
+                <input type="text" spellcheck="false" value="Игрок 1"> 
+                <button class="minus-btn" data-player="2">-</button>
+              </div>
+            </td>
+            <td class="player">
+              <div class="player-container">
+                <button class="plus-btn" data-player="3"">+</button>
+                <input type="text" spellcheck="false" value="Игрок 1"> 
+                <button class="minus-btn" data-player="3">-</button>
+              </div>
+            </td>
+            -->
+          </tr>
+        </tbody>
+        <tbody>
+          <tr id="navigation">
+            <!--
+            <td colspan="5">
+              <div id="nav-container">
+                <div class="nav-prev">&lt;&lt;</div>
+                <div class="nav-current">1.10</div>
+                <div class="nav-next">&gt;&gt;</div>
+              </div>
+            </td>
           -->
-        </tr>
-      </tbody>
-      <tbody>
-        <tr id="navigation">
-          <!--
-          <td colspan="5">
-            <div id="nav-container">
-              <div class="nav-prev">&lt;&lt;</div>
-              <div class="nav-current">1.10</div>
-              <div class="nav-next">&gt;&gt;</div>
-            </div>
-          </td>
-        -->
-        </tr>
-      </tbody>
-      <tbody id="package-block">
-        <!-- <tr><td colspan="5">
-          <select id="select-box" size="4" multiple style="display: none;"></select>
-        </td></tr> -->
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+        <tbody id="package-block">
+          <!-- <tr><td colspan="5">
+            <select id="select-box" size="4" multiple style="display: none;"></select>
+          </td></tr> -->
+        </tbody>
+      </table>
+    </div>
     <script>
       require('./renderer.js')
     </script>
