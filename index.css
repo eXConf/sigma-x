@@ -35,8 +35,9 @@ table {
     background-color: rgb(71, 71, 71);
     color: whitesmoke;
     font-size: 20px;
-    padding: 6px;
-
+    padding-top: 12px;
+    padding-bottom: 6px;
+    cursor: default;
 }
 
 .question-price {
