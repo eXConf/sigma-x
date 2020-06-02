@@ -222,6 +222,17 @@ function onNameKeyDown(e) {
     }
 }
 
+function copyScoresToClipboard() {
+    let scores = ""
+    for (let i = 0; i < numOfPlayers; i++) {
+        scores += `${(i != 0 ? "\n" : "")}` + //Не добавляем перевод для первой строки
+        `${players[i].name}: ${players[i].totalScore} ` +
+        `(Ответы: +${players[i].correct}/-${players[i].incorrect})`
+    }
+    clipboard.writeText(scores)
+    console.log(scores)
+}
+
 //GUI Creation
 
 // Create questions block
@@ -326,6 +337,8 @@ function addTotalScores() {
     let totalsTr = document.getElementById("totals")
     let tdSumSign = document.createElement("td")
     tdSumSign.innerText = "Σ"
+    tdSumSign.onclick = copyScoresToClipboard
+    tdSumSign.setAttribute("title", "Кликните, чтобы скопировать счет в буфер обмена")
     totalsTr.appendChild(tdSumSign)
 
     for (let i = 0; i < numOfPlayers; i++) {
