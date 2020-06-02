@@ -81,6 +81,18 @@ td[data-answer="lost"] {
     font-weight: bold;
 }
 
+.correct-answers, .incorrect-answers {
+    font-weight: normal;
+}
+
+.correct-answers {
+    color: green;
+}
+
+.incorrect-answers {
+    color: red;
+}
+
 #spacer {
     height: 24px;
 }

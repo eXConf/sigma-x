@@ -37,21 +37,18 @@ function addScore(player, amount) {
     if (players[player].scores[currentQuestionNumber] == amount) {
         players[player].scores[currentQuestionNumber] = null
         players[player].totalScore -= amount
-        console.log("Начисление " + amount + " очков отменено")
         return
     }
     //Если очки за этот вопрос ранее были сняты, отменяем снятие и начисляем очки
     if (players[player].scores[currentQuestionNumber] == -amount) {
         players[player].scores[currentQuestionNumber] = amount
         players[player].totalScore += (2 * amount)
-        console.log("Отменили предыдущий минус и начислили " + amount + " очков")
         return
     }
     //В остальных случаях просто добавляем очки
     players[player].scores[currentQuestionNumber] = amount
     players[player].totalScore += amount
-    console.log(players[player].name + " получил " + amount + " очков. Всего " +
-        players[player].totalScore + " очков")
+    //Пересчитываем кол-во правильных/неправильных ответов
 }
 
 function subScore(player, amount) {
@@ -59,7 +56,6 @@ function subScore(player, amount) {
     if (players[player].scores[currentQuestionNumber] == -amount) {
         players[player].scores[currentQuestionNumber] = null
         players[player].totalScore += amount
-        console.log("Списание " + amount + " очков отменено")
         return
     } 
     //Если очки за этот вопрос ранее были начислены,
@@ -67,14 +63,22 @@ function subScore(player, amount) {
     if (players[player].scores[currentQuestionNumber] == amount) {
         players[player].scores[currentQuestionNumber] = -amount
         players[player].totalScore -= 2 * amount
-        console.log("Отменили предыдущее начисление и списываем " + amount + " очков")
         return
     }
     //В остальных случаях просто списываем очки
     players[player].scores[currentQuestionNumber] = -amount
     players[player].totalScore -= amount
-    console.log(players[player].name + " потерял " + amount + " очков. Всего " +
-        players[player].totalScore + " очков")
+}
+
+function countAnswers(player) {
+    players[player].correct = 0
+    players[player].incorrect = 0
+    for (let i = 0; i < players[player].scores.length; i++) {
+        let score = players[player].scores[i]
+        if (score > 0) { players[player].correct++ }
+        if (score < 0) { players[player].incorrect++ }
+    }
+    console.log(players)
 }
 
 function getSubjectNumber() {
@@ -119,23 +123,23 @@ function sendPriceToChat() {
 }
 
 //#region GUI
-let totalScoreGUI = document.getElementsByClassName("total-score")
+//let totalScoreGUI = document.getElementsByClassName("total-score")
 
 function onAddScoreClicked(e) {
-  let button = e.target
-  let player = parseInt(button.getAttribute("data-player"))
-  addScore(player, currentQuestionPrice)
-  totalScoreGUI[player].innerHTML = players[player].totalScore
-
-  updateScoreTable(player, currentQuestionPrice)
+    let button = e.target
+    let player = parseInt(button.getAttribute("data-player"))
+    addScore(player, currentQuestionPrice)
+    countAnswers(player)
+    updateTotalScore(player)
+    updateScoreTable(player, currentQuestionPrice)
 }
 
 function onSubScoreClicked(e) {
     let button = e.target
     let player = parseInt(button.getAttribute("data-player"))
     subScore(player, currentQuestionPrice)
-    totalScoreGUI[player].innerHTML = players[player].totalScore
-
+    countAnswers(player)
+    updateTotalScore(player)
     updateScoreTable(player, -currentQuestionPrice)
 }
 
@@ -192,6 +196,13 @@ function updateScoreTable(player, score) {
             cell.setAttribute("data-answer", "lost")
         }
     }
+}
+
+function updateTotalScore(player) {
+    let totalScoreGUI = document.getElementsByClassName("total-score")
+    totalScoreGUI[player].innerHTML = players[player].totalScore + "<br>" +
+        " [<span class='correct-answers'>" + players[player].correct + "</span>/" +
+        "<span class='incorrect-answers'>" + players[player].incorrect + "</span>]"
 }
 
 function setActiveRow(_number) {
