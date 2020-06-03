@@ -102,15 +102,25 @@ function updateGraph() {
 }
 
 //#region IPC
-ipcRenderer.on("send-players-to-graph", (e, args) => {
+ipcRenderer.sendTo(1, "data-for-graph-window")
+ipcRenderer.on("data-from-main-window", (e, args) => {
     players = args.players
     if (args.currentQuestionNumber > maxQuestions) {
         maxQuestions = args.currentQuestionNumber
     }
     updateGraph()
-    //console.log(players)
-    //prepareDatasets()
 })
 
-ipcRenderer.send("graph-asks-for-players")
+
+// ipcRenderer.on("send-players-to-graph", (e, args) => {
+//     players = args.players
+//     if (args.currentQuestionNumber > maxQuestions) {
+//         maxQuestions = args.currentQuestionNumber
+//     }
+//     updateGraph()
+//     //console.log(players)
+//     //prepareDatasets()
+// })
+
+// ipcRenderer.send("graph-asks-for-players")
 //#endregion

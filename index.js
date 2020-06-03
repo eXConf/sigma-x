@@ -67,7 +67,6 @@ function openNewGameWindow() {
   newGameWindow.on('closed',  () => {
     newGameWindow = null
   })
-
 }
 
 function openGraphWindow() {
@@ -80,11 +79,13 @@ function openGraphWindow() {
   //Remove menu for production!
   graphWindow.removeMenu()
   graphWindow.loadFile('graph.html')
-  //graphWindow.webContents.openDevTools()
+  graphWindow.webContents.openDevTools()
 
   graphWindow.on('closed',  () => {
     graphWindow = null
   })
+
+  mainWindow.webContents.send("graph-id", graphWindow.webContents.id)
 }
 //#endregion
 
@@ -104,7 +105,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open DevTools - Remove for PRODUCTION!
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Hide menu
   //mainWindow.removeMenu()

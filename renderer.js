@@ -4,6 +4,8 @@ const { clipboard, ipcRenderer } = require('electron')
 
 robot.setKeyboardDelay(1)
 
+let graphWindowId
+
 let numOfPlayers = 4 //number of players in game, 4 by default
 let numOfQuestions = 5 //number of question in one subject, 5 by default
 let players = []
@@ -428,17 +430,22 @@ ipcRenderer.on("new-game-clicked", (e, params) => {
     startGame(numOfPlayers)
 })
 
-ipcRenderer.on("test-channel", () => {
-    console.log("Test received in renderer.js")
+ipcRenderer.on("graph-id", (e, id) => {
+    graphWindowId = id
+    console.log(graphWindowId)
+})
+
+ipcRenderer.on("data-for-graph-window", () => {
+    sendPlayersToGraphWindow()
 })
 
 function sendPlayersToGraphWindow() {
-    ipcRenderer.send("send-players-to-main", 
-    {
+    ipcRenderer.sendTo(graphWindowId, "data-from-main-window", {
         "players": players,
         "currentQuestionNumber": currentQuestionNumber
     })
 }
+
 //#endregion
 
 //#region UTILITY
