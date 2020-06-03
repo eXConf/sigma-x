@@ -6,7 +6,7 @@ let canvas = document.getElementById("myChart")
 
 let players = []
 let maxQuestions = 0
-let myChart
+let myChart = null
 
 let colors = ["#92e084", "#e08492", "#86a2e3",
             "#c287e6", "#e0aa84", "#83cae0",
@@ -60,6 +60,9 @@ function updateGraph() {
     let questions = []
     for (let i = 0; i < (maxQuestions + 2); i++) {
         questions.push(i)
+    }
+    if (myChart != null) {
+        myChart.destroy()
     }
     myChart = new Chart(canvas, {
         type: 'line',
