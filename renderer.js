@@ -256,7 +256,7 @@ function addQuestionsBlock() {
         answer.onclick = onQuestionRowClicked
         let price = document.createElement("td")
         price.setAttribute("class", "question-price")
-        price.innerText = (i + 1) * 10
+        price.innerText = (i + 1) * basePrice
         answer.appendChild(price)
 
         for (let y = 0; y < numOfPlayers; y++) {
@@ -326,7 +326,7 @@ function addNavigationControls() {
     navNext.innerText = ">>"
     navNext.onclick = onNextQuestionClicked
     navCurrent.setAttribute("id", "nav-current")
-    navCurrent.innerText = "1.10"
+    navCurrent.innerText = "1." + basePrice
     navCurrent.onclick = sendPriceToChat
     navDiv.appendChild(navPrev)
     navDiv.appendChild(navCurrent)
@@ -417,6 +417,7 @@ ipcRenderer.on("toggle-show-package", () => {
 ipcRenderer.on("new-game-clicked", (e, params) => {
     numOfPlayers = params.players
     numOfQuestions = params.questions
+    basePrice = params.basePrice
     players = []
     currentQuestionNumber = 1
     currentQuestionPrice = basePrice
