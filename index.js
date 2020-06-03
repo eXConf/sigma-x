@@ -6,6 +6,8 @@ const isMac = process.platform === 'darwin'
 //#region Window(s)
 let mainWindow
 let newGameWindow
+let graphWindow
+
 let mainWindowWidth = 490
 let mainWindowHeight = 440
 //#endregion
@@ -66,6 +68,23 @@ function openNewGameWindow() {
     newGameWindow = null
   })
 
+}
+
+function openGraphWindow() {
+  graphWindow = new BrowserWindow({
+    width: 600, height: 400, minWidth: 400, minHeight: 300,
+    webPreferences: { nodeIntegration: true },
+    title: "SIGMA X — График игры"
+  })
+
+  //Remove menu for production!
+  graphWindow.removeMenu()
+  graphWindow.loadFile('graph.html')
+  //newGameWindow.webContents.openDevTools()
+
+  graphWindow.on('closed',  () => {
+    graphWindow = null
+  })
 }
 //#endregion
 
