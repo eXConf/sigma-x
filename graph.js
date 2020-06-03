@@ -24,7 +24,7 @@ function prepareDatasets() {
         playerData.fill = false // Отменяем заливку
         // Превращаем очки за вопрос в сумму очков на момент вопроса
         let scores = []
-        for (let y = 0; y < maxQuestions; y++) {
+        for (let y = 0; y < (maxQuestions + 1); y++) {
             let score = players[i].scores[y]
             // Если очки на этом вопросе не были начислены
             if (score == undefined) { 
@@ -105,7 +105,7 @@ function updateGraph() {
 ipcRenderer.on("send-players-to-graph", (e, args) => {
     players = args.players
     if (args.currentQuestionNumber > maxQuestions) {
-        maxQuestions = args.currentQuestionNumber + 1
+        maxQuestions = args.currentQuestionNumber
     }
     updateGraph()
     //console.log(players)
