@@ -298,6 +298,7 @@ function addPlayerControls() {
         input.setAttribute("spellcheck", "false")
         input.setAttribute("data-player", i)
         input.value = `Игрок ${i + 1}`
+        input.tabIndex = i + 1
         input.onkeypress = onNameKeyPress
 
         div.appendChild(plusButton)
