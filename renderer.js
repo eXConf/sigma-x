@@ -427,5 +427,38 @@ ipcRenderer.on("new-game-clicked", (e, params) => {
 })
 //#endregion
 
+//#region UTILITY
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min
+}
+//#endregion
+
+//#region TEST
+function fillTestScores(questionsNumber) {
+    for (let i = 0; i < questionsNumber; i++) {
+        //Минусуем случайных игроков
+        for (let y = 0; y < numOfPlayers; y++) {
+            if (getRandomInt(0, 5) == 0) {
+                let player = y
+                subScore(player, currentQuestionPrice)
+                countAnswers(player)
+                updateTotalScore(player)
+                updateScoreTable(player, -currentQuestionPrice)
+            }
+        }
+        //Возможно плюсуем одному случайному игроку
+        if (getRandomInt(0, 10) < 7) {
+            let player = getRandomInt(0, numOfPlayers)
+            addScore(player, currentQuestionPrice)
+            countAnswers(player)
+            updateTotalScore(player)
+            updateScoreTable(player, currentQuestionPrice)
+        }
+        i + 1 == questionsNumber ? null : onNextQuestionClicked()
+    }
+}
+//#endregion
+
 // On start
 startGame(numOfPlayers)
+fillTestScores(50)
