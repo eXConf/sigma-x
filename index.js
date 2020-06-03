@@ -62,7 +62,7 @@ function openNewGameWindow() {
   //Remove menu for production!
   newGameWindow.removeMenu()
   newGameWindow.loadFile('new-game.html')
-  //newGameWindow.webContents.openDevTools()
+  newGameWindow.webContents.openDevTools()
 
   newGameWindow.on('closed',  () => {
     newGameWindow = null
@@ -80,7 +80,7 @@ function openGraphWindow() {
   //Remove menu for production!
   graphWindow.removeMenu()
   graphWindow.loadFile('graph.html')
-  //newGameWindow.webContents.openDevTools()
+  //graphWindow.webContents.openDevTools()
 
   graphWindow.on('closed',  () => {
     graphWindow = null
@@ -140,5 +140,11 @@ ipcMain.on("resize-main-window", (e, height) => {
 ipcMain.on("new-game-clicked", (e, params) => {
   mainWindow.webContents.send("new-game-clicked", params)
   newGameWindow.close()
+})
+
+ipcMain.on("graph-asks-for-players", (e) => {
+  ipcMain.on("send-players-to-main", (ev, args) => {
+    e.reply("send-players-to-graph", args)
+  })
 })
 //#endregion

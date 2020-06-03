@@ -11,3 +11,7 @@ startGameBtn.onclick = function() {
                     "questions": questions,
                     "basePrice": basePrice})
 }
+
+ipcRenderer.on("test-channel", () => {
+    console.log("Test received in new-game.js")
+})

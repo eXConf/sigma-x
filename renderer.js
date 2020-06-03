@@ -131,6 +131,7 @@ function onAddScoreClicked(e) {
     countAnswers(player)
     updateTotalScore(player)
     updateScoreTable(player, currentQuestionPrice)
+    sendPlayersToGraphWindow()
 }
 
 function onSubScoreClicked(e) {
@@ -140,6 +141,7 @@ function onSubScoreClicked(e) {
     countAnswers(player)
     updateTotalScore(player)
     updateScoreTable(player, -currentQuestionPrice)
+    sendPlayersToGraphWindow()
 }
 
 function setCurrentQuestionText() {
@@ -213,15 +215,16 @@ function setActiveRow(_number) {
      newActive.classList.add("active")
 }
 
+function onNameInput(e) {
+    let player = parseInt(e.target.getAttribute("data-player"))
+    let name = e.target.value
+    players[player].name = name
+}
+
 function onNameKeyPress(e) {
     if (e.key == "Enter") {
         e.target.blur()
     }
-    setTimeout(() => {
-        let player = parseInt(e.target.getAttribute("data-player"))
-        let name = e.target.value
-        players[player].name = name
-    }, 1)
 }
 
 function copyScoresToClipboard() {
@@ -297,6 +300,7 @@ function addPlayerControls() {
         input.setAttribute("data-player", i)
         input.value = `Игрок ${i + 1}`
         input.tabIndex = i + 1
+        input.oninput = onNameInput
         input.onkeypress = onNameKeyPress
 
         div.appendChild(plusButton)
@@ -423,6 +427,18 @@ ipcRenderer.on("new-game-clicked", (e, params) => {
     resetGUI()
     startGame(numOfPlayers)
 })
+
+ipcRenderer.on("test-channel", () => {
+    console.log("Test received in renderer.js")
+})
+
+function sendPlayersToGraphWindow() {
+    ipcRenderer.send("send-players-to-main", 
+    {
+        "players": players,
+        "currentQuestionNumber": currentQuestionNumber
+    })
+}
 //#endregion
 
 //#region UTILITY
