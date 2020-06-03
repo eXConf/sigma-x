@@ -475,4 +475,4 @@ function fillTestScores(questionsNumber) {
 
 // On start
 startGame(numOfPlayers)
-fillTestScores(50)
+//fillTestScores(50)
