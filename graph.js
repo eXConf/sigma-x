@@ -59,7 +59,7 @@ function updateGraph() {
     }
     let questions = []
     for (let i = 0; i < (maxQuestions + 2); i++) {
-        questions.push(i + 1)
+        questions.push(i)
     }
     myChart = new Chart(canvas, {
         type: 'line',
@@ -105,7 +105,7 @@ function updateGraph() {
 ipcRenderer.on("send-players-to-graph", (e, args) => {
     players = args.players
     if (args.currentQuestionNumber > maxQuestions) {
-        maxQuestions = args.currentQuestionNumber
+        maxQuestions = args.currentQuestionNumber + 1
     }
     updateGraph()
     //console.log(players)
