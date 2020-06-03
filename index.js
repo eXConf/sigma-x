@@ -27,6 +27,12 @@ const template = [
       { label: 'Показать/Скрыть вопросы', type: 'checkbox', checked: false, 
                 click() { toggleShowPackage() }}
     ]
+  },
+  {
+    label: 'Итоги',
+    submenu: [
+      { label: 'Показать график', click() { openGraphWindow(); } }
+    ]
   }
 ]
 const menu = Menu.buildFromTemplate(template)
