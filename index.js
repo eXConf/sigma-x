@@ -72,7 +72,7 @@ function openNewGameWindow() {
 
 function openGraphWindow() {
   graphWindow = new BrowserWindow({
-    width: 600, height: 400, minWidth: 400, minHeight: 300,
+    width: 900, height: 630, minWidth: 400, minHeight: 300,
     webPreferences: { nodeIntegration: true },
     title: "SIGMA X — График игры"
   })

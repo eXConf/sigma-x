@@ -58,10 +58,9 @@ function updateGraph() {
         playerNames.push(players[i].name)
     }
     let questions = []
-    for (let i = 0; i < maxQuestions; i++) {
+    for (let i = 0; i < (maxQuestions + 2); i++) {
         questions.push(i + 1)
     }
-    
     myChart = new Chart(canvas, {
         type: 'line',
         data: {
@@ -94,7 +93,10 @@ function updateGraph() {
                     fontSize: 20
                 }
             },
-            animation: false
+            animation: false,
+            layout: {
+                padding: 1
+            }
         }
     })
 }
