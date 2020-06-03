@@ -78,7 +78,6 @@ function countAnswers(player) {
         if (score > 0) { players[player].correct++ }
         if (score < 0) { players[player].incorrect++ }
     }
-    console.log(players)
 }
 
 function getSubjectNumber() {
@@ -150,7 +149,6 @@ function setCurrentQuestionText() {
     if (question == 0) { question = numOfQuestions}
     let number = subject + "." + question * basePrice 
     currentQ.innerText = number
-    console.log("Текущий уровень " + number)
 }
 
 function onNextQuestionClicked() {
