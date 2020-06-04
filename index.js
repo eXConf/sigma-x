@@ -142,10 +142,4 @@ ipcMain.on("new-game-clicked", (e, params) => {
   mainWindow.webContents.send("new-game-clicked", params)
   newGameWindow.close()
 })
-
-ipcMain.on("graph-asks-for-players", (e) => {
-  ipcMain.on("send-players-to-main", (ev, args) => {
-    e.reply("send-players-to-graph", args)
-  })
-})
 //#endregion
