@@ -419,15 +419,16 @@ ipcRenderer.on("toggle-show-package", () => {
 })
 
 ipcRenderer.on("new-game-clicked", (e, params) => {
-    numOfPlayers = params.players
-    numOfQuestions = params.questions
-    basePrice = params.basePrice
+    numOfPlayers = parseInt(params.players)
+    numOfQuestions = parseInt(params.questions)
+    basePrice = parseInt(params.basePrice)
     players = []
     currentQuestionNumber = 1
     currentQuestionPrice = basePrice
 
     resetGUI()
     startGame(numOfPlayers)
+    fillTestScores(50)
 })
 
 ipcRenderer.on("graph-id", (e, id) => {
