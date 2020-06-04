@@ -429,7 +429,7 @@ ipcRenderer.on("new-game-clicked", (e, params) => {
 
     resetGUI()
     startGame(numOfPlayers)
-    fillTestScores(50)
+    //fillTestScores(50)
 })
 
 ipcRenderer.on("graph-id", (e, id) => {

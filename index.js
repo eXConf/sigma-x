@@ -62,7 +62,7 @@ function openNewGameWindow() {
   //Remove menu for production!
   newGameWindow.removeMenu()
   newGameWindow.loadFile('new-game.html')
-  newGameWindow.webContents.openDevTools()
+  //newGameWindow.webContents.openDevTools()
 
   newGameWindow.on('closed',  () => {
     newGameWindow = null
@@ -71,7 +71,7 @@ function openNewGameWindow() {
 
 function openGraphWindow() {
   graphWindow = new BrowserWindow({
-    width: 900, height: 630, minWidth: 400, minHeight: 300,
+    width: 900, height: 560, minWidth: 400, minHeight: 300,
     webPreferences: { nodeIntegration: true },
     title: "SIGMA X — График игры"
   })
@@ -79,7 +79,7 @@ function openGraphWindow() {
   //Remove menu for production!
   graphWindow.removeMenu()
   graphWindow.loadFile('graph.html')
-  graphWindow.webContents.openDevTools()
+  //graphWindow.webContents.openDevTools()
 
   graphWindow.on('closed',  () => {
     graphWindow = null
@@ -105,7 +105,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open DevTools - Remove for PRODUCTION!
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Hide menu
   //mainWindow.removeMenu()
