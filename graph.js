@@ -1,8 +1,19 @@
-const { clipboard, ipcRenderer } = require('electron')
+const { nativeImage, clipboard, ipcRenderer } = require('electron')
+const Chart = require('chart.js')
 
-let Chart = require('chart.js')
+//#region Chart configuration
 Chart.defaults.global.defaultFontSize = 14
 let canvas = document.getElementById("myChart")
+
+// Указываем цвет фона холста, чтобы он не был прозрачным
+Chart.plugins.register({
+    beforeDraw: function(chartInstance, easing) {
+      var ctx = chartInstance.chart.ctx
+      ctx.fillStyle = 'white' // Меняем цвет здесь
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+  })
+//#endregion
 
 let players = []
 let maxQuestions = 0
@@ -15,6 +26,7 @@ let colors = ["#92e084", "#e08492", "#86a2e3",
 
 // Готовим данные для графика            
 function prepareDatasets() {
+    console.log(players)
     let arr = [] //будущий dataset
     for (let i = 0; i < players.length; i++) { // Для каждого игрока
         let playerData = {}
@@ -46,12 +58,14 @@ function prepareDatasets() {
             scores.push(score)
         }
         playerData.data = scores
+        playerData.backgroundColor = "blue"
         arr.push(playerData)
     }
     console.log(arr)
     return arr
 }
 
+// Рисуем график
 function updateGraph() {
     let playerNames = []
     for (let i = 0; i < players.length; i++) {
@@ -65,6 +79,7 @@ function updateGraph() {
         myChart.destroy()
     }
     myChart = new Chart(canvas, {
+        backgroundColor: "#FF4444",
         type: 'line',
         data: {
             labels: questions,
@@ -104,6 +119,13 @@ function updateGraph() {
     })
 }
 
+// Копируем график
+function copyGraph() {
+    let img = canvas.toDataURL()
+    let data = nativeImage.createFromDataURL(img)
+    clipboard.writeImage(data)
+}
+
 //#region IPC
 ipcRenderer.sendTo(1, "data-for-graph-window")
 ipcRenderer.on("data-from-main-window", (e, args) => {
@@ -113,17 +135,11 @@ ipcRenderer.on("data-from-main-window", (e, args) => {
     }
     updateGraph()
 })
-
-
-// ipcRenderer.on("send-players-to-graph", (e, args) => {
-//     players = args.players
-//     if (args.currentQuestionNumber > maxQuestions) {
-//         maxQuestions = args.currentQuestionNumber
-//     }
-//     updateGraph()
-//     //console.log(players)
-//     //prepareDatasets()
-// })
-
-// ipcRenderer.send("graph-asks-for-players")
 //#endregion
+
+function onStart() {
+    let button = document.getElementById("copy-graph")
+    button.onclick = copyGraph
+}
+
+onStart()
