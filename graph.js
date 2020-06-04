@@ -58,7 +58,6 @@ function prepareDatasets() {
             scores.push(score)
         }
         playerData.data = scores
-        playerData.backgroundColor = "blue"
         arr.push(playerData)
     }
     console.log(arr)
