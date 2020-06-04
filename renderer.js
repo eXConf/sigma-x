@@ -165,6 +165,7 @@ function onNextQuestionClicked() {
         window.scrollTo(0, document.body.scrollHeight)
     }
     setActiveRow(currentQuestionNumber)
+    sendPlayersToGraphWindow()
 }
 
 function onPrevQuestionClicked() {
@@ -176,7 +177,7 @@ function onPrevQuestionClicked() {
 }
 
 function onQuestionRowClicked(e) {
-    let rowNumber = e.target.getAttribute("data-question-number")
+    let rowNumber = parseInt(e.target.getAttribute("data-question-number"))
     setActiveRow(rowNumber)
     currentQuestionNumber = rowNumber
     changeCurrentQuestionPrice()

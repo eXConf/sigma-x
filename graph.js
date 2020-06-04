@@ -26,7 +26,6 @@ let colors = ["#92e084", "#e08492", "#86a2e3",
 
 // Готовим данные для графика            
 function prepareDatasets() {
-    console.log(players)
     let arr = [] //будущий dataset
     for (let i = 0; i < players.length; i++) { // Для каждого игрока
         let playerData = {}
@@ -60,7 +59,6 @@ function prepareDatasets() {
         playerData.data = scores
         arr.push(playerData)
     }
-    console.log(arr)
     return arr
 }
 
