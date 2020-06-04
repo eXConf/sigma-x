@@ -1,7 +1,7 @@
 {
-  "name": "sixbot",
+  "name": "sigmax",
   "version": "1.0.0",
-  "description": "Бот для \"Своей игры\" с постепенным выводом текста (как рассказчик)",
+  "description": "Помощник ведущего для спортивной \"Своей игры\"",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
