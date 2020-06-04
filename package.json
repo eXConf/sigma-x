@@ -1,6 +1,6 @@
 {
   "name": "sigmax",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Помощник ведущего для спортивной \"Своей игры\"",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "telegram",
     "bot"
   ],
-  "author": "eXConf",
+  "author": "Sergey Sosedkin",
   "license": "ISC",
   "devDependencies": {
     "electron": "^9.0.0",
@@ -25,5 +25,8 @@
     "chart.js": "^2.9.3",
     "node-telegram-bot-api": "^0.50.0",
     "robotjs": "^0.6.0"
+  },
+  "build": {
+    "productName": "SIGMA X"
   }
 }
