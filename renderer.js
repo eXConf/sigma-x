@@ -330,8 +330,9 @@ function addNavigationControls() {
     navNext.innerText = ">>"
     navNext.onclick = onNextQuestionClicked
     navCurrent.setAttribute("id", "nav-current")
+    navCurrent.setAttribute("title", "Отправить номер темы и вопроса в предыдущее окно")
     navCurrent.innerText = "1." + basePrice
-    navCurrent.onclick = sendPriceToChat
+    navCurrent.onclick = sendPriceToChat    
     navDiv.appendChild(navPrev)
     navDiv.appendChild(navCurrent)
     navDiv.appendChild(navNext)
