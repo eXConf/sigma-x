@@ -1,7 +1,6 @@
 // Modules
-const {app, Menu, BrowserWindow, clipboard, ipcMain} = require('electron')
+const {app, dialog, Menu, BrowserWindow, clipboard, ipcMain} = require('electron')
 const isMac = process.platform === 'darwin'
-//const robot = require("robotjs")
 
 //#region Window(s)
 let mainWindow
@@ -35,6 +34,31 @@ const template = [
     submenu: [
       { label: 'Показать график', click() { openGraphWindow(); } }
     ]
+  },
+  {
+    label: 'Вид',
+    submenu: [
+      { label: 'Сбросить масштаб', role: 'resetzoom' },
+      { label: 'Увеличить', role: 'zoomin' },
+      { label: 'Уменьшить', role: 'zoomout' },
+      { type: 'separator' },
+      { label: 'Полноэкранный режим', role: 'togglefullscreen' }
+    ]
+  },
+  {
+    label: 'Помощь', role: 'help',
+    submenu: [
+      {
+        label: 'Сайт программы',
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://github.com/eXConf?tab=repositories')
+        }
+      },
+      {
+        label: 'О программе...', click() { openAboutDialog(); }
+      }
+    ]
   }
 ]
 const menu = Menu.buildFromTemplate(template)
@@ -50,6 +74,16 @@ function pastePackageFromClipboard() {
 
 function toggleShowPackage() {
   mainWindow.webContents.send("toggle-show-package")
+}
+
+function openAboutDialog() {
+  dialog.showMessageBox(mainWindow, {
+    type: 'info',
+    buttons: [],
+    title: 'О программе...',
+    message: 'SIGMA X:\nSvoya Igra Game Manager Application by eXconf \n\n' +
+    'Версия: ' + app.getVersion() + '\nАвтор: Сергей Соседкин'
+  })
 }
 
 function openNewGameWindow() {
@@ -79,7 +113,7 @@ function openGraphWindow() {
   //Remove menu for production!
   graphWindow.removeMenu()
   graphWindow.loadFile('graph.html')
-  //graphWindow.webContents.openDevTools()
+  graphWindow.webContents.openDevTools()
 
   graphWindow.on('closed',  () => {
     graphWindow = null
@@ -105,7 +139,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open DevTools - Remove for PRODUCTION!
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Hide menu
   //mainWindow.removeMenu()
