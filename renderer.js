@@ -13,6 +13,8 @@ let players = []
 let currentQuestionNumber = 1
 let basePrice = 10
 let currentQuestionPrice = basePrice
+
+let isPackVisible
 //#endregion
 
 
@@ -379,14 +381,13 @@ function addPackageBlock() {
     let packageTr = document.createElement("tr")
     let packageTd = document.createElement("td")
     let packageSelect = document.createElement("select")
-
+    packageTd.setAttribute("colspan", (numOfPlayers + 1))
     packageTbody.appendChild(packageTr).appendChild(packageTd).appendChild(packageSelect)
 
-    packageTd.setAttribute("colspan", numOfPlayers + 1)
     packageSelect.setAttribute("id", "select-box")
     packageSelect.setAttribute("size", "4")
     packageSelect.setAttribute("multiple", "")
-    packageSelect.setAttribute("style", "display: none")
+    packageSelect.setAttribute("style", "display: " + (isPackVisible ? "block" : "none"))
 
     window.scrollTo(0, document.body.scrollHeight)
 }
@@ -406,11 +407,17 @@ function resetGUI() {
     let playerControls = document.getElementById("players")
     let navigationConrtols = document.getElementById("navigation")
     let totalScores = document.getElementById("totals")
+    let packageTbody = document.getElementById("package-block")
 
     questionsBlock.innerHTML = ""
     playerControls.innerHTML = ""
     navigationConrtols.innerHTML = ""
     totalScores.innerHTML = ""
+
+    let selectBox = document.getElementById("select-box")
+    isPackVisible = selectBox.offsetParent === null ? false : true
+
+    packageTbody.innerHTML = ""
 }
 //#endregion
 
