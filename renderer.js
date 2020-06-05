@@ -6,8 +6,8 @@ robot.setKeyboardDelay(30)
 
 let graphWindowId
 
-let numOfPlayers = 4 //number of players in game, 4 by default
-let numOfQuestions = 5 //number of question in one subject, 5 by default
+let numOfPlayers = 4 // Число игроков, 4 по умолчанию
+let numOfQuestions = 5 // Число вопросов в каждой теме, 5 по умолчанию
 let players = []
 
 let currentQuestionNumber = 1
@@ -26,10 +26,10 @@ function startGame(numOfPlayers) {
 function addPlayer() {
     players.push({
         name: `Игрок ${players.length + 1}`, 
-        totalScore: 0,
-        scores: [],
-        correct: 0,
-        incorrect: 0
+        totalScore: 0,  // Сумма очков за игру
+        scores: [],     // Очки за каждый из вопросов
+        correct: 0,     // Счетчик правильных ответов
+        incorrect: 0    // Счетчик неправильных ответов
     }
         )
 }
@@ -50,7 +50,6 @@ function addScore(player, amount) {
     //В остальных случаях просто добавляем очки
     players[player].scores[currentQuestionNumber] = amount
     players[player].totalScore += amount
-    //Пересчитываем кол-во правильных/неправильных ответов
 }
 
 function subScore(player, amount) {
@@ -73,6 +72,7 @@ function subScore(player, amount) {
 }
 
 function countAnswers(player) {
+    // Пересчитываем число правильных/неправильных ответов
     players[player].correct = 0
     players[player].incorrect = 0
     for (let i = 0; i < players[player].scores.length; i++) {
@@ -83,19 +83,27 @@ function countAnswers(player) {
 }
 
 function getSubjectNumber() {
+    // Получаем номер текущей темы из текущего номера вопроса
     return Math.floor((currentQuestionNumber - 1) / numOfQuestions) + 1
 }
 
 function changeCurrentQuestionPrice() {
+    // Получаем стоимость текущего вопроса исходя из номера
+    // текущего вопроса, базовой стоимости и числа вопросов в теме
     let number = (currentQuestionNumber % numOfQuestions) * basePrice 
     currentQuestionPrice = number > 0 ? number : numOfQuestions * basePrice
 }
 
 function parsePackageText(text) {
+    // Разбиваем текст по строкам
     text = text.split("\n")
     let selectBox = document.getElementById("select-box")
+    // Чистим блок вопросов от старого текста
     selectBox.innerHTML = ""
     for (let i = 0; i < text.length; i++) {
+        // Удаляем в тексте пустые строки;
+        // записываем каждую строку текста в отдельный элемент,
+        // чередуя с пустыми строками
         if (text[i] != "" && text[i] != "\r" 
             && text[i] != "\n" && text[i] != " ") {
             let option = document.createElement("option")
@@ -105,6 +113,7 @@ function parsePackageText(text) {
             selectBox.appendChild(blank)
         }
     }
+    // Включаем отображение блока вопросов
     selectBox.setAttribute("style", "display: block")
 }
 
@@ -115,7 +124,8 @@ function sendPriceToChat() {
     robot.keyTap("tab")
     robot.keyToggle("alt", "up")
     robot.keyToggle("control", "down")
-    // This delay is attempt to fix a bug when sometimes text not pasted
+    // SetTimeout - попытка исправить баг, когда текст из буфера по какой-то
+    // причине не вставляется
     setTimeout(() => {
         robot.keyTap("v")
         robot.keyToggle("control", "up")
@@ -127,22 +137,21 @@ function sendPriceToChat() {
 }
 
 //#region GUI
-//let totalScoreGUI = document.getElementsByClassName("total-score")
-
 function onAddScoreClicked(e) {
     let button = e.target
     let player = parseInt(button.getAttribute("data-player"))
     addScore(player, currentQuestionPrice)
-    countAnswers(player)
-    updateTotalScore(player)
-    updateScoreTable(player, currentQuestionPrice)
-    sendPlayersToGraphWindow()
+    processAnswer(player)
 }
 
 function onSubScoreClicked(e) {
     let button = e.target
     let player = parseInt(button.getAttribute("data-player"))
     subScore(player, currentQuestionPrice)
+    processAnswer(player)
+}
+
+function processAnswer(player) {
     countAnswers(player)
     updateTotalScore(player)
     updateScoreTable(player, -currentQuestionPrice)
@@ -163,6 +172,9 @@ function onNextQuestionClicked() {
     changeCurrentQuestionPrice()
     setCurrentQuestionText()
     let questionsInGUI = document.getElementsByClassName("answer").length
+    // Если номер текущего вопроса больше числа вопросов на экране,
+    // то добавляем новый блок вопросов (тему) на экран, и
+    // скроллим экран вниз
     if (questionsInGUI < currentQuestionNumber) {
         addQuestionsBlock()
         window.scrollTo(0, document.body.scrollHeight)
@@ -188,6 +200,7 @@ function onQuestionRowClicked(e) {
 }
 
 function updateScoreTable(player, score) {
+    // Отображаем очки игрока за вопрос в игровой таблице
     let cell = document.querySelector("td[data-question-number='" + currentQuestionNumber 
             + "'][data-player='" + player + "']")
     if (cell.innerText == score) {
@@ -246,7 +259,6 @@ function copyScoresToClipboard() {
 
 //GUI Creation
 
-// Create questions block
 function addQuestionsBlock() {
     let subjectsTbody = document.getElementById("subjects")
     let subjectsTr = document.createElement("tr")
@@ -271,14 +283,12 @@ function addQuestionsBlock() {
             player.setAttribute("data-player", y)
             let questionNumber = (getSubjectNumber() - 1) * 5 + (i + 1)
             player.setAttribute("data-question-number", questionNumber)
-            //player.innerText = questionNumber
             answer.appendChild(player)
         }
         subjectsTbody.appendChild(answer)
     }
 }
 
-// Add players controls
 function addPlayerControls() {
     let playersRow = document.getElementById("players")
     let blankPlayer = document.createElement("td")
@@ -317,7 +327,6 @@ function addPlayerControls() {
     }
 }
 
-// Add navigation controls
 function addNavigationControls() {
     let navTr = document.getElementById("navigation")
     let navTd = document.createElement("td")
@@ -344,7 +353,6 @@ function addNavigationControls() {
     navTr.appendChild(navTd)
 }
 
-// Add total scores
 function addTotalScores() {
     let spacerTr = document.getElementById("spacer")
     spacerTr.childNodes[0].setAttribute("colspan", numOfPlayers + 1)
@@ -366,7 +374,6 @@ function addTotalScores() {
     }
 }
 
-// Add package block
 function addPackageBlock() {
     let packageTbody = document.getElementById("package-block")
     let packageTr = document.createElement("tr")
@@ -451,7 +458,6 @@ function sendPlayersToGraphWindow() {
         "currentQuestionNumber": currentQuestionNumber
     })
 }
-
 //#endregion
 
 //#region UTILITY

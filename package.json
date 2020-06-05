@@ -10,8 +10,8 @@
   },
   "keywords": [
     "sigame",
-    "telegram",
-    "bot"
+    "helper",
+    "productivity"
   ],
   "author": "Sergey Sosedkin",
   "license": "ISC",
@@ -23,10 +23,10 @@
   },
   "dependencies": {
     "chart.js": "^2.9.3",
-    "node-telegram-bot-api": "^0.50.0",
     "robotjs": "^0.6.0"
   },
   "build": {
-    "productName": "SIGMA X"
+    "productName": "SIGMA X",
+    "copyright": "Copyright © 2020 Sergey Sosedkin"
   }
 }
