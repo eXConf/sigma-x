@@ -2,7 +2,7 @@
 const robot = require("robotjs")
 const { clipboard, ipcRenderer } = require('electron')
 
-robot.setKeyboardDelay(1)
+robot.setKeyboardDelay(30)
 
 let graphWindowId
 
@@ -115,12 +115,15 @@ function sendPriceToChat() {
     robot.keyTap("tab")
     robot.keyToggle("alt", "up")
     robot.keyToggle("control", "down")
-    robot.keyTap("v")
-    robot.keyToggle("control", "up")
-    robot.keyTap("enter")
-    robot.keyToggle("alt", "down")
-    robot.keyTap("tab")
-    robot.keyToggle("alt", "up")
+    // This delay is attempt to fix a bug when sometimes text not pasted
+    setTimeout(() => {
+        robot.keyTap("v")
+        robot.keyToggle("control", "up")
+        robot.keyTap("enter")
+        robot.keyToggle("alt", "down")
+        robot.keyTap("tab")
+        robot.keyToggle("alt", "up")
+    }, 10)
 }
 
 //#region GUI
