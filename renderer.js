@@ -143,6 +143,7 @@ function onAddScoreClicked(e) {
     let button = e.target
     let player = parseInt(button.getAttribute("data-player"))
     addScore(player, currentQuestionPrice)
+    updateScoreTable(player, currentQuestionPrice)
     processAnswer(player)
 }
 
@@ -150,14 +151,14 @@ function onSubScoreClicked(e) {
     let button = e.target
     let player = parseInt(button.getAttribute("data-player"))
     subScore(player, currentQuestionPrice)
+    updateScoreTable(player, -currentQuestionPrice)
     processAnswer(player)
 }
 
 function processAnswer(player) {
     countAnswers(player)
     updateTotalScore(player)
-    updateScoreTable(player, -currentQuestionPrice)
-    sendPlayersToGraphWindow()
+    graphWindowId ? sendPlayersToGraphWindow() : null
 }
 
 function setCurrentQuestionText() {
