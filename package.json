@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec electron .",
-    "build": "electron-builder --win"
+    "build": "electron-builder --win",
+    "win-cert": "electron-builder create-self-signed-cert -p ExConfessor"
   },
   "keywords": [
     "sigame",
