@@ -17,7 +17,7 @@ const template = [
     label: 'Игра',
     submenu: [
       { label: 'Новая игра...', click() {openNewGameWindow();} },
-      { label: 'Перезагрузить', role: 'reload' },
+      //{ label: 'Перезагрузить', role: 'reload' },
       isMac ? { label: 'Выход', role: 'close' } : { label: 'Выход', role: 'quit' }
     ]
   },
