@@ -60,7 +60,7 @@ const template = [
         label: 'Сайт программы',
         click: async () => {
           const { shell } = require('electron')
-          await shell.openExternal('https://github.com/eXConf?tab=repositories')
+          await shell.openExternal('https://github.com/eXConf/sigma-x')
         }
       },
       {
