@@ -178,8 +178,8 @@ app.on('activate', () => {
 //#endregion
 
 //#region IPC
-ipcMain.on("resize-main-window", (e, height) => {
-  mainWindow.setSize(mainWindowWidth, mainWindowHeight + height + 10)
+ipcMain.on("resize-main-window", (e, params) => {
+  mainWindow.setSize(params.width + 80, params.height + 50)
 })
 
 ipcMain.on("new-game-clicked", (e, params) => {

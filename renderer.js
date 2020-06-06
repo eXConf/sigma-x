@@ -401,6 +401,9 @@ function initGUI() {
 
     addQuestionsBlock()
     setActiveRow(1)
+
+    // Подгоняем размер окна под содержимое
+    resizeWindow()
 }
 
 function resetGUI() {
@@ -425,8 +428,7 @@ function resetGUI() {
 //#region IPC
 ipcRenderer.on("pack-from-clipboard", (e, text) => {
     parsePackageText(text)
-    boxHeight = document.getElementById("select-box").offsetHeight
-    ipcRenderer.send("resize-main-window", boxHeight)
+    resizeWindow()
     window.scrollTo(0, document.body.scrollHeight)
 })
 
@@ -434,6 +436,7 @@ ipcRenderer.on("toggle-show-package", () => {
     let selectBox = document.getElementById("select-box")
     let isPackVisible = selectBox.offsetParent === null ? false : true
     selectBox.setAttribute("style", "display: " + (isPackVisible ? "none" : "block"))
+    resizeWindow()
     window.scrollTo(0, document.body.scrollHeight)
     
 })
@@ -459,6 +462,12 @@ ipcRenderer.on("graph-id", (e, id) => {
 ipcRenderer.on("data-for-graph-window", () => {
     sendPlayersToGraphWindow()
 })
+
+function resizeWindow() {
+    let width = document.getElementById("main").offsetWidth
+    let height = document.getElementById("main").offsetHeight
+    ipcRenderer.send("resize-main-window", {width: width, height: height})
+}
 
 function sendPlayersToGraphWindow() {
     ipcRenderer.sendTo(graphWindowId, "data-from-main-window", {
