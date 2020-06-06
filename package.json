@@ -9,6 +9,8 @@
     "build": "electron-builder --win",
     "win-cert": "electron-builder create-self-signed-cert -p ExConfessor"
   },
+  "repository": "https://github.com/eXConf/sigma-x",
+  "homepage": "https://github.com/eXConf/sigma-x",
   "keywords": [
     "sigame",
     "helper",
@@ -24,6 +26,7 @@
   },
   "dependencies": {
     "chart.js": "^2.9.3",
+    "electron-updater": "^4.3.1",
     "robotjs": "^0.6.0"
   },
   "build": {
