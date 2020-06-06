@@ -1,0 +1,34 @@
+body {
+    align-content: center;
+    align-items: center;
+}
+progress {
+    text-align: center;
+    vertical-align: middle;
+    height: 34px;
+    width: 100%;
+    -webkit-appearance: none;
+    border: none;
+    
+    /* Set the progressbar to relative */
+    position:relative;
+  }
+  progress:before {
+    content: attr(data-label);
+    font-size: 0.8em;
+    vertical-align: 0;
+    
+    /*Position text over the progress bar */
+    position:absolute;
+    left:0;
+    right:0;
+  }
+  progress::-webkit-progress-bar {
+    background-color: #c9c9c9;
+  }
+  progress::-webkit-progress-value {
+    background-color: #7cc4ff;
+  }
+  progress::-moz-progress-bar {
+    background-color: #7cc4ff;
+  }

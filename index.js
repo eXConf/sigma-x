@@ -1,11 +1,19 @@
 // Modules
 const {app, dialog, Menu, BrowserWindow, clipboard, ipcMain} = require('electron')
+const { autoUpdater } = require("electron-updater")
 const isMac = process.platform === 'darwin'
+
+//#region AutoUpdater config
+autoUpdater.autoDownload = false
+autoUpdater.logger = require("electron-log")
+autoUpdater.logger.transports.file.level = "info"
+//#endregion
 
 //#region Window(s)
 let mainWindow
 let newGameWindow
 let graphWindow
+let dlStatusWindow
 
 let mainWindowWidth = 550
 let mainWindowHeight = 440
@@ -125,7 +133,9 @@ function openGraphWindow() {
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
-
+  setTimeout(() => {
+    autoUpdater.checkForUpdates()
+  }, 2000)
   mainWindow = new BrowserWindow({
     // width: 485, height: 800,
     width: mainWindowWidth, height: mainWindowHeight,
@@ -176,4 +186,58 @@ ipcMain.on("new-game-clicked", (e, params) => {
   mainWindow.webContents.send("new-game-clicked", params)
   newGameWindow.close()
 })
+//#endregion
+
+//#region AutoUpdater
+autoUpdater.on("update-available", () => {
+    dialog.showMessageBox({
+        type: "info",
+        title: "Доступно обновление",
+        message: "Доступна новая версия SIGMA X. Хотите обновить программу сейчас?",
+        buttons: ["Обновить", "Позже"],
+        defaultId: 0,
+        cancelId: 1
+    }).then(result => {
+        //Если кнопка 0 (Обновить), начинаем загрузку обновления
+        if (result.response === 0) {
+          // Начинаем загрузку  
+          autoUpdater.downloadUpdate()
+          
+          // Создаем окно со статусом загрузки
+          createDlStatusWindow()
+        }
+    })
+})
+
+autoUpdater.on("update-downloaded", () => {
+  // Закрываем окно со статусом загрузки
+  dlStatusWindow.close()
+  dialog.showMessageBox({
+        type: "info",
+        title: "Обновление готово",
+        message: "Обновление загружено. Перезапустить программу и установить обновление сейчас?",
+        buttons: ["Да", "Позже"]
+    }).then(result => {
+        //Если кнопка 0 (Установить), закрываем программу и устанавливаем обновление
+        if (result.response == 0) { autoUpdater.quitAndInstall(false, true) }
+    })
+})
+
+autoUpdater.on("download-progress", (progress) => {
+  dlStatusWindow.webContents.send("dl-status", Math.floor(progress.percent))
+
+})
+
+function createDlStatusWindow() {
+  dlStatusWindow = new BrowserWindow({
+    width: 350, height: 90, minWidth: 350, minHeight: 100,
+    webPreferences: { nodeIntegration: true },
+    title: "Загрузка обновления..."
+  })
+  dlStatusWindow.removeMenu()
+  dlStatusWindow.loadFile('dl-status.html')
+  dlStatusWindow.on('closed',  () => {
+    dlStatusWindow = null
+  })
+}
 //#endregion

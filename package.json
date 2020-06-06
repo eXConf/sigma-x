@@ -1,12 +1,13 @@
 {
-  "name": "sigmax",
-  "version": "1.0.1",
+  "name": "sigma-x",
+  "version": "1.0.0",
   "description": "Помощник ведущего для спортивной \"Своей игры\"",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec electron .",
     "build": "electron-builder --win",
+    "release": "electron-builder -w -p 'onTagOrDraft'",
     "win-cert": "electron-builder create-self-signed-cert -p ExConfessor"
   },
   "repository": "https://github.com/eXConf/sigma-x",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "chart.js": "^2.9.3",
+    "electron-log": "^4.2.1",
     "electron-updater": "^4.3.1",
     "robotjs": "^0.6.0"
   },
