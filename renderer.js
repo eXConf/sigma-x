@@ -125,12 +125,12 @@ function sendPriceToChat() {
     robot.keyToggle("alt", "down")
     robot.keyTap("tab")
     robot.keyToggle("alt", "up")
-    robot.keyToggle("control", "down")
+    robot.keyToggle("shift", "down")
     // SetTimeout - попытка исправить баг, когда текст из буфера по какой-то
     // причине не вставляется
     setTimeout(() => {
-        robot.keyTap("v")
-        robot.keyToggle("control", "up")
+        robot.keyTap("insert")
+        robot.keyToggle("shift", "up")
         robot.keyTap("enter")
         robot.keyToggle("alt", "down")
         robot.keyTap("tab")
