@@ -1,5 +1,7 @@
 assets/
 build/
+private/
+
 # Logs
 logs
 *.log
