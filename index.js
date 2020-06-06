@@ -121,7 +121,7 @@ function openGraphWindow() {
   //Remove menu for production!
   graphWindow.removeMenu()
   graphWindow.loadFile('graph.html')
-  graphWindow.webContents.openDevTools()
+  //graphWindow.webContents.openDevTools()
 
   graphWindow.on('closed',  () => {
     graphWindow = null
