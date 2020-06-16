@@ -264,7 +264,7 @@ function onEditSubject(e) {
     let subject = e.target
     // Выключаем редактирование темы, если оно уже включено
     if (subject.getAttribute("contenteditable") == "true") {
-        onExitSubjectEditing(e.target)
+        onExitSubjectEditing(e)
         return
     }
 
@@ -301,13 +301,28 @@ function onPackageTextKeyPress(e) {
 
 function copyScoresToClipboard() {
     let scores = ""
+    let firstQuestion = (getSubjectNumber() * numOfQuestions) - numOfQuestions + 1
+    let lastQuestion = firstQuestion + numOfQuestions
+
     for (let i = 0; i < numOfPlayers; i++) {
+        let playerSubjectAnswers = []
+        let playerSubjectTotal = 0
+        for (let y = firstQuestion; y < lastQuestion; y++) {
+            let answer = players[i].scores[y]
+            if (answer != null) {
+                playerSubjectAnswers.push(answer > 0 ? `+${answer}` : answer)
+                playerSubjectTotal += answer
+            }
+        }
+
         scores += `${(i != 0 ? "\n" : "")}` + //Не добавляем перевод для первой строки
         `${players[i].name}: ${players[i].totalScore} ` +
-        `(Ответы: +${players[i].correct}/-${players[i].incorrect})`
+        `(+${players[i].correct}/-${players[i].incorrect}). ` +
+        `В теме: ${playerSubjectTotal > 0 ? "+" : ""}${playerSubjectTotal}` +
+        ` (${playerSubjectAnswers.join(" ")})`
     }
     clipboard.writeText(scores)
-    console.log(scores)
+    //console.log(scores)
 }
 
 //GUI Creation
