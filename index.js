@@ -35,7 +35,7 @@ const template = [
       { label: 'Вставить из буфера обмена', click() { pastePackageFromClipboard(); } },
       { label: 'Показать/Скрыть вопросы', type: 'checkbox', checked: false, 
                 click() { toggleShowPackage() }},
-      { label: 'Копировать подробный счёт', type: 'checkbox', checked: false, 
+      { label: 'Подробный счёт при копировании', type: 'checkbox', checked: false, 
       click() { toggleDetailedScores() }}
     ]
   },
