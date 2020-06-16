@@ -5,6 +5,7 @@ const { clipboard, ipcRenderer } = require('electron')
 robot.setKeyboardDelay(30)
 
 let graphWindowId
+let isDetailedScoresEnabled = false
 
 let numOfPlayers = 4 // Число игроков, 4 по умолчанию
 let numOfQuestions = 5 // Число вопросов в каждой теме, 5 по умолчанию
@@ -317,9 +318,13 @@ function copyScoresToClipboard() {
 
         scores += `${(i != 0 ? "\n" : "")}` + //Не добавляем перевод для первой строки
         `${players[i].name}: ${players[i].totalScore} ` +
-        `(+${players[i].correct}/-${players[i].incorrect}). ` +
-        `В теме: ${playerSubjectTotal > 0 ? "+" : ""}${playerSubjectTotal}` +
-        ` (${playerSubjectAnswers.join(" ")})`
+        `(+${players[i].correct}/-${players[i].incorrect})`
+
+        // Опционально добавляем результаты за текущую тему
+        if (isDetailedScoresEnabled) {
+            scores += `. В теме: ${playerSubjectTotal > 0 ? "+" : ""}${playerSubjectTotal}` +
+            ` (${playerSubjectAnswers.join(" ")})`
+        }
     }
     clipboard.writeText(scores)
     //console.log(scores)
@@ -508,6 +513,10 @@ ipcRenderer.on("toggle-show-package", () => {
     resizeWindow()
     window.scrollTo(0, document.body.scrollHeight)
     
+})
+
+ipcRenderer.on("toggle-detailed-scores", () => {
+    isDetailedScoresEnabled = isDetailedScoresEnabled ? false : true
 })
 
 ipcRenderer.on("new-game-clicked", (e, params) => {

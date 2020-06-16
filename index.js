@@ -34,7 +34,9 @@ const template = [
     submenu: [
       { label: 'Вставить из буфера обмена', click() { pastePackageFromClipboard(); } },
       { label: 'Показать/Скрыть вопросы', type: 'checkbox', checked: false, 
-                click() { toggleShowPackage() }}
+                click() { toggleShowPackage() }},
+      { label: 'Копировать подробный счёт', type: 'checkbox', checked: false, 
+      click() { toggleDetailedScores() }}
     ]
   },
   {
@@ -82,6 +84,10 @@ function pastePackageFromClipboard() {
 
 function toggleShowPackage() {
   mainWindow.webContents.send("toggle-show-package")
+}
+
+function toggleDetailedScores() {
+  mainWindow.webContents.send("toggle-detailed-scores")
 }
 
 function openAboutDialog() {
@@ -134,7 +140,7 @@ function openGraphWindow() {
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
   setTimeout(() => {
-    //autoUpdater.checkForUpdates()
+    autoUpdater.checkForUpdates()
   }, 2000)
   mainWindow = new BrowserWindow({
     // width: 485, height: 800,
@@ -149,7 +155,7 @@ function createWindow () {
   mainWindow.loadFile('./html/index.html')
 
   // Open DevTools - Remove for PRODUCTION!
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Hide menu
   //mainWindow.removeMenu()
