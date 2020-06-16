@@ -1,6 +1,6 @@
 {
   "name": "sigma-x",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Помощник ведущего для спортивной \"Своей игры\"",
   "main": "index.js",
   "scripts": {
