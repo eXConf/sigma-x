@@ -35,9 +35,22 @@ table {
     background-color: rgb(71, 71, 71);
     color: whitesmoke;
     font-size: 20px;
+    font-style: normal;
     padding-top: 12px;
     padding-bottom: 6px;
-    cursor: default;
+    cursor: pointer;
+}
+
+.subject.edit {
+    font-style: italic;
+}
+
+.subject.edit::after {
+    content: "";
+}
+
+.subject::after {
+    content: " 🖉";
 }
 
 .question-price {

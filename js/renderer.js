@@ -9,6 +9,7 @@ let graphWindowId
 let numOfPlayers = 4 // Число игроков, 4 по умолчанию
 let numOfQuestions = 5 // Число вопросов в каждой теме, 5 по умолчанию
 let players = []
+let subjectNames = [] // Список названий тем
 
 let currentQuestionNumber = 1
 let basePrice = 10
@@ -120,7 +121,16 @@ function parsePackageText(text) {
 }
 
 function sendPriceToChat() {
-    text = "Тема #" + getSubjectNumber() + ", вопрос за " + currentQuestionPrice
+    // Если название темы дефолтное (Тема #X), то не добавляем
+    // слова "Тема #" лишний раз
+    let subjectName = ""
+    let subjectNumber = getSubjectNumber()
+    if (subjectNames[subjectNumber] != `Тема #${subjectNumber}`) {
+        subjectName = `Тема #${subjectNumber}: `
+    } 
+    subjectName += subjectNames[subjectNumber]
+
+    let text = `${subjectName}, вопрос за ${currentQuestionPrice}`
     clipboard.writeText(text)
     robot.keyToggle("alt", "down")
     robot.keyTap("tab")
@@ -249,6 +259,37 @@ function onNameKeyPress(e) {
     }
 }
 
+function onEditSubject(e) {
+    let subject = e.target
+    // Выключаем редактирование темы, если оно уже включено
+    if (subject.getAttribute("contenteditable") == "true") {
+        onExitSubjectEditing(e.target)
+        return
+    }
+
+    subject.setAttribute("contenteditable", "true")
+    subject.focus()
+    subject.classList.add("edit")
+    subject.onkeypress = onEditSubjectKeyPressed
+}
+
+function onExitSubjectEditing(e) {
+    subject = e.target
+    subject.setAttribute("contenteditable", "false")
+    subject.classList.remove("edit")
+    let subjectNumber = subject.dataset.subjectNumber
+    let subjectName = subject.innerText
+
+    subjectNames[subjectNumber] = subjectName
+}
+
+function onEditSubjectKeyPressed(e) {
+    if (e.key == "Enter") {
+        e.preventDefault()
+        onExitSubjectEditing(e)
+    }
+}
+
 function copyScoresToClipboard() {
     let scores = ""
     for (let i = 0; i < numOfPlayers; i++) {
@@ -268,7 +309,11 @@ function addQuestionsBlock() {
     let subjectsTh = document.createElement("th")
     subjectsTh.setAttribute("colspan", numOfPlayers + 1)
     subjectsTh.setAttribute("class", "subject")
-    subjectsTh.innerText = "Тема " + getSubjectNumber()
+    subjectsTh.setAttribute("data-subject-number", getSubjectNumber())
+    subjectsTh.innerText = "Тема #" + getSubjectNumber()
+    subjectNames[getSubjectNumber()] = subjectsTh.innerText
+    subjectsTh.onclick = onEditSubject
+    subjectsTh.onblur = onExitSubjectEditing
     subjectsTr.appendChild(subjectsTh)
     subjectsTbody.appendChild(subjectsTr)
 
