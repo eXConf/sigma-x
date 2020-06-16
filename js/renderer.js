@@ -101,6 +101,7 @@ function parsePackageText(text) {
     // Разбиваем текст по строкам
     text = text.split("\n")
     let selectBox = document.getElementById("select-box")
+    selectBox.onkeydown = onPackageTextKeyPress
     // Чистим блок вопросов от старого текста
     selectBox.innerHTML = ""
     for (let i = 0; i < text.length; i++) {
@@ -287,6 +288,14 @@ function onEditSubjectKeyPressed(e) {
     if (e.key == "Enter") {
         e.preventDefault()
         onExitSubjectEditing(e)
+    }
+}
+
+function onPackageTextKeyPress(e) {
+    // Если нажаты Ctrl + C, копируем текст выделенного элемента в буфер
+    if (e.ctrlKey && e.key == "c" || e.key == "с") {
+        let selectedText = document.querySelectorAll("option:checked")[0].innerText
+        clipboard.writeText(selectedText)
     }
 }
 

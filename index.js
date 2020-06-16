@@ -134,7 +134,7 @@ function openGraphWindow() {
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
   setTimeout(() => {
-    autoUpdater.checkForUpdates()
+    //autoUpdater.checkForUpdates()
   }, 2000)
   mainWindow = new BrowserWindow({
     // width: 485, height: 800,
@@ -149,7 +149,7 @@ function createWindow () {
   mainWindow.loadFile('./html/index.html')
 
   // Open DevTools - Remove for PRODUCTION!
-  //mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Hide menu
   //mainWindow.removeMenu()
