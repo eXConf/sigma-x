@@ -103,7 +103,7 @@ function openNewGameWindow() {
   
   //Remove menu for production!
   newGameWindow.removeMenu()
-  newGameWindow.loadFile('new-game.html')
+  newGameWindow.loadFile('./html/new-game.html')
   //newGameWindow.webContents.openDevTools()
 
   newGameWindow.on('closed',  () => {
@@ -120,7 +120,7 @@ function openGraphWindow() {
 
   //Remove menu for production!
   graphWindow.removeMenu()
-  graphWindow.loadFile('graph.html')
+  graphWindow.loadFile('./html/graph.html')
   //graphWindow.webContents.openDevTools()
 
   graphWindow.on('closed',  () => {
@@ -146,7 +146,7 @@ function createWindow () {
   })
 
   // Load index.html into the new BrowserWindow
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('./html/index.html')
 
   // Open DevTools - Remove for PRODUCTION!
   //mainWindow.webContents.openDevTools()
@@ -235,7 +235,7 @@ function createDlStatusWindow() {
     title: "Загрузка обновления..."
   })
   dlStatusWindow.removeMenu()
-  dlStatusWindow.loadFile('dl-status.html')
+  dlStatusWindow.loadFile('./html/dl-status.html')
   dlStatusWindow.on('closed',  () => {
     dlStatusWindow = null
   })
